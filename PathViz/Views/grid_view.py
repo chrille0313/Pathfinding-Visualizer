@@ -33,5 +33,5 @@ class GridView:
                 self.cell_view.render(window, self.cell_size[0] * current.pos[0], self.cell_size[1] * current.pos[1], Colors.PATH)
                 current = current.prev_node
 
-        self.cell_view.render(window, self.cell_size[0] * self.model.start[0], self.cell_size[1] * self.model.start[1], Colors.START_STOP)
-        self.cell_view.render(window, self.cell_size[0] * self.model.end[0], self.cell_size[1] * self.model.end[1], Colors.START_STOP)
+        self.cell_view.render(window, self.cell_size[0] * self.model.start[0], self.cell_size[1] * self.model.start[1], Colors.START)
+        self.cell_view.render(window, self.cell_size[0] * self.model.end[0], self.cell_size[1] * self.model.end[1], Colors.STOP)

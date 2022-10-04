@@ -7,8 +7,7 @@ from ..globals import Event
 class AppModel:
     def __init__(self, grid_size):
         self.running = False
-        self.grid_size = grid_size
-        self.grid = GridModel(grid_size)
+        self.grid = GridModel([[0 for _ in range(grid_size[0])] for _ in range(grid_size[1])])
 
     def init(self):
         pg.init()
@@ -40,4 +39,4 @@ class AppModel:
         while self.running:
             self.events()
             self.update()
-            clock.tick(0)
+            clock.tick(60)

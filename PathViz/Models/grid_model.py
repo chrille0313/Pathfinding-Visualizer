@@ -1,15 +1,16 @@
-from .Pathfinding.algorithms_model import *
+import random
+from .Pathfinding import algorithms_model as Algorithms
 
 
 class GridModel:
-    def __init__(self, size):
-        self.size = size
-        self.visited = []
-        self.start = (2, 2)
-        self.end = (2, 27)
-        self.pathfinder = AStar(self, self.start, self.end)
-        self.finished = False
+    def __init__(self, grid=None, start=None, end=None, algorithm=Algorithms.AStar):
+        self.grid = grid if grid is not None else [[0]]
+        self.size = (len(self.grid[0]), len(self.grid))
+        self.start = start if start is not None else random.randint(0, self.size[0] - 1), random.randint(0, self.size[1] - 1)
+        self.end = end if end is not None else random.randint(0, self.size[0] - 1), random.randint(0, self.size[1] - 1)
+        self.pathfinder = algorithm(self, self.start, self.end)
         self.cur_node = None
+        self.finished = False
 
     def update(self):
         if not self.finished:

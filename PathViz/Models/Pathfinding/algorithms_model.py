@@ -3,7 +3,7 @@ import heapq
 from .path_node_model import PathNode
 from queue import Queue, PriorityQueue
 import heapq
-from math import sqrt
+from math import sqrt, inf
 
 
 class BFS:
@@ -36,6 +36,7 @@ class BFS:
 class Dijsktra:
     def __init__(self, world, start, end):
         self.world = world
+        self.distances = {(x, y): inf for x in range(world.size[0]) for y in range(world.size[1])}
         self.visited = set()
         self.visited_order = []
 
@@ -45,17 +46,19 @@ class Dijsktra:
         self.end = end
 
     def next(self):
-        cost, current_path_node = heapq.heappop(self.q)
+        current_cost, current_path_node = heapq.heappop(self.q)
 
+        self.visited.add(current_path_node.pos)
         self.visited_order.append(current_path_node.pos)
 
         if current_path_node.pos == self.end:
             return current_path_node, True
 
         for adj in self.world.get_adjacent(current_path_node.pos):
-            if adj not in self.visited:
-                self.visited.add(adj)
-                heapq.heappush(self.q, (cost + 1, PathNode(adj, current_path_node)))
+            new_cost = current_cost + 1
+            if adj not in self.visited and new_cost < self.distances[adj]:
+                self.distances[adj] = new_cost
+                heapq.heappush(self.q, (new_cost, PathNode(adj, current_path_node)))
 
         return current_path_node, False
 
@@ -63,28 +66,35 @@ class Dijsktra:
 class AStar:
     def __init__(self, world, start, end):
         self.world = world
+        self.distances = {(x, y): inf for x in range(world.size[0]) for y in range(world.size[1])}
         self.visited = set()
         self.visited_order = []
 
         self.q = []
-        heapq.heappush(self.q, (0, PathNode(start)))
+        heapq.heappush(self.q, (0, 0, 0, PathNode(start)))
 
+        self.start = start
         self.end = end
 
-    def dist(self, pos):
-        return sqrt((pos[0] - self.end[0]) ** 2 + (pos[1] - self.end[1]) ** 2)
+    def dist(self, a, b):
+        return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
     def next(self):
-        cost, current_path_node = heapq.heappop(self.q)
+        current_f_cost, current_h_cost, current_g_cost, current_path_node = heapq.heappop(self.q)
 
+        self.visited.add(current_path_node.pos)
         self.visited_order.append(current_path_node.pos)
 
         if current_path_node.pos == self.end:
             return current_path_node, True
 
         for adj in self.world.get_adjacent(current_path_node.pos):
-            if adj not in self.visited:
-                self.visited.add(adj)
-                heapq.heappush(self.q, (cost + self.dist(adj), PathNode(adj, current_path_node)))
+            new_g_cost = current_g_cost + self.dist(current_path_node.pos, adj)
+            new_h_cost = self.dist(adj, self.end)
+            new_f_cost = new_g_cost + new_h_cost
+
+            if adj not in self.visited and new_f_cost < self.distances[adj]:
+                self.distances[adj] = new_f_cost
+                heapq.heappush(self.q, (new_f_cost, new_h_cost, new_g_cost, PathNode(adj, current_path_node)))
 
         return current_path_node, False

@@ -9,7 +9,7 @@ class AppView:
         pg.init()
         self.window_size = window_size
         self.window = pg.display.set_mode(self.window_size)
-        width, height = app_model.grid_size
+        width, height = app_model.grid.size
         cell_size = window_size[0] / width, window_size[1] / height
         self.grid = GridView(app_model.grid, cell_size)
 
