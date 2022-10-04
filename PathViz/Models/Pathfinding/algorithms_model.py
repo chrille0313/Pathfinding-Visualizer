@@ -71,12 +71,16 @@ class AStar:
         self.visited_order = []
 
         self.q = []
-        heapq.heappush(self.q, (0, 0, 0, PathNode(start)))
+        heapq.heappush(self.q, (self.euclidean_dist(start, end), self.euclidean_dist(start, end), 0, PathNode(start)))
+        self.distances[start] = 0
 
         self.start = start
         self.end = end
 
-    def dist(self, a, b):
+    def euclidean_dist(self, a, b):
+        return sqrt((a[0] - b[0])**2 + (a[1] - b[1])**2)
+
+    def manhattan_dist(self, a, b):
         return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
     def next(self):
@@ -89,12 +93,12 @@ class AStar:
             return current_path_node, True
 
         for adj in self.world.get_adjacent(current_path_node.pos):
-            new_g_cost = current_g_cost + self.dist(current_path_node.pos, adj)
-            new_h_cost = self.dist(adj, self.end)
+            new_g_cost = current_g_cost + self.manhattan_dist(current_path_node.pos, adj)
+            new_h_cost = self.euclidean_dist(adj, self.end)
             new_f_cost = new_g_cost + new_h_cost
 
-            if adj not in self.visited and new_f_cost < self.distances[adj]:
-                self.distances[adj] = new_f_cost
+            if adj not in self.visited and new_g_cost < self.distances[adj]:
+                self.distances[adj] = new_g_cost
                 heapq.heappush(self.q, (new_f_cost, new_h_cost, new_g_cost, PathNode(adj, current_path_node)))
 
         return current_path_node, False
