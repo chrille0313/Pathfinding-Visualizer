@@ -1,9 +1,7 @@
 import heapq
-
-from .path_node_model import PathNode
 from queue import Queue, PriorityQueue
-import heapq
 from math import sqrt, inf
+from .path_node_model import PathNode
 
 
 class BFS:
@@ -33,7 +31,7 @@ class BFS:
         return current_path_node, False
 
 
-class Dijsktra:
+class Dijkstra:
     def __init__(self, world, start, end):
         self.world = world
         self.distances = {(x, y): inf for x in range(world.size[0]) for y in range(world.size[1])}
@@ -55,7 +53,7 @@ class Dijsktra:
             return current_path_node, True
 
         for adj in self.world.get_adjacent(current_path_node.pos):
-            new_cost = current_cost + 1
+            new_cost = current_cost + self.world.grid[adj[0]][adj[1]].weight
             if adj not in self.visited and new_cost < self.distances[adj]:
                 self.distances[adj] = new_cost
                 heapq.heappush(self.q, (new_cost, PathNode(adj, current_path_node)))
