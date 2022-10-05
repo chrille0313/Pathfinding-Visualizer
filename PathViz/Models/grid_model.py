@@ -21,16 +21,18 @@ class GridModel:
         return 0 <= x < self.size[0] and 0 <= y < self.size[1]
 
     def get_adjacent(self, node) -> list:
+        # TODO: check for walls
+
         adjacent = []
         node_x, node_y = node
 
         for x, y in ((node_x, node_y - 1),
-                     (node_x + 1, node_y - 1),
                      (node_x + 1, node_y),
-                     (node_x + 1, node_y + 1),
                      (node_x, node_y + 1),
-                     (node_x - 1, node_y + 1),
                      (node_x - 1, node_y),
+                     (node_x + 1, node_y - 1),
+                     (node_x + 1, node_y + 1),
+                     (node_x - 1, node_y + 1),
                      (node_x - 1, node_y - 1)):
             if self.is_inside(x, y):
                 adjacent.append((x, y))
