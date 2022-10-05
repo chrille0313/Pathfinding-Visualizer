@@ -1,13 +1,14 @@
 import pygame as pg
-from .grid_model import GridModel
 from PathViz.events import Events
-from ..globals import Event
+from PathViz.globals import Event
+from .grid_model import GridModel
+from .cell_model import CellModel
 
 
 class AppModel:
     def __init__(self, grid_size):
         self.running = False
-        self.grid = GridModel([[0 for _ in range(grid_size[0])] for _ in range(grid_size[1])])
+        self.grid = GridModel([[CellModel() for _ in range(grid_size[1])] for _ in range(grid_size[0])])
 
     def init(self):
         pg.init()
@@ -25,7 +26,6 @@ class AppModel:
     def update(self):
         self.grid.update()
         Events.post(Event.APP_UPDATE)
-        pass
 
     def run(self):
         self.init()
@@ -36,6 +36,7 @@ class AppModel:
 
     def main_loop(self):
         clock = pg.time.Clock()
+
         while self.running:
             self.events()
             self.update()
