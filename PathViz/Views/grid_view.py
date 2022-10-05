@@ -22,6 +22,9 @@ class GridView:
         for x, y in self.model.pathfinder.visited_order:
             self.cell_view.render(window, self.cell_size[0] * x, self.cell_size[1] * y, self.model.grid[x][y], self.color_theme.visited)
 
+        for x, y in self.model.pathfinder.searching:
+            self.cell_view.render(window, self.cell_size[0] * x, self.cell_size[1] * y, self.model.grid[x][y], self.color_theme.searching)
+
         if self.model.finished:
             current = self.model.cur_node
 
