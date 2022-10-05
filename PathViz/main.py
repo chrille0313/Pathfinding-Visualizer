@@ -1,7 +1,7 @@
 from PathViz.Views import AppView
 from PathViz.Models import AppModel
 
-from globals import *
+from globals import WIDTH, HEIGHT, WIN_WIDTH, WIN_HEIGHT
 
 
 if __name__ == '__main__':
