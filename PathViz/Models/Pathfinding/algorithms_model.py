@@ -1,4 +1,3 @@
-import heapq
 from queue import Queue, PriorityQueue
 from math import sqrt, inf
 from .path_node_model import PathNode
@@ -50,13 +49,13 @@ class Dijkstra:
         self.visited_order = []
         self.searching = {start}
 
-        self.q = []
-        heapq.heappush(self.q, (0, PathNode(start)))
+        self.q = PriorityQueue()
+        self.q.put((0, PathNode(start)))
 
         self.end = end
 
     def next(self):
-        current_cost, current_path_node = heapq.heappop(self.q)
+        current_cost, current_path_node = self.q.get()
 
         if current_path_node.pos in self.searching:
             self.searching.remove(current_path_node.pos)
@@ -72,7 +71,7 @@ class Dijkstra:
 
             if adj not in self.visited and new_cost < self.distances[adj]:
                 self.distances[adj] = new_cost
-                heapq.heappush(self.q, (new_cost, PathNode(adj, current_path_node)))
+                self.q.put((new_cost, PathNode(adj, current_path_node)))
                 self.searching.add(adj)
 
         return current_path_node, False
@@ -86,15 +85,15 @@ class AStar:
         self.visited_order = []
         self.searching = {start}
 
-        self.q = []
-        heapq.heappush(self.q, (euclidean_dist(start, end), euclidean_dist(start, end), 0, PathNode(start)))
+        self.q = PriorityQueue()
+        self.q.put((euclidean_dist(start, end), euclidean_dist(start, end), 0, PathNode(start)))
         self.distances[start] = 0
 
         self.start = start
         self.end = end
 
     def next(self):
-        current_f_cost, current_h_cost, current_g_cost, current_path_node = heapq.heappop(self.q)
+        current_f_cost, current_h_cost, current_g_cost, current_path_node = self.q.get()
 
         self.searching.remove(current_path_node.pos)
         self.visited.add(current_path_node.pos)
@@ -110,7 +109,7 @@ class AStar:
 
             if adj not in self.visited and new_g_cost < self.distances[adj]:
                 self.distances[adj] = new_g_cost
-                heapq.heappush(self.q, (new_f_cost, new_h_cost, new_g_cost, PathNode(adj, current_path_node)))
+                self.q.put((new_f_cost, new_h_cost, new_g_cost, PathNode(adj, current_path_node)))
                 self.searching.add(adj)
 
         return current_path_node, False
