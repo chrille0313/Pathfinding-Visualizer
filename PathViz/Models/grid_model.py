@@ -1,14 +1,12 @@
-import random
-from .cell_model import CellModel
+from .cell_model import Cell
+from .maze_model import PrimsMaze
 from .Pathfinding import algorithms_model as Algorithms
 
 
 class GridModel:
-    def __init__(self, grid=None, start=None, end=None, algorithm=Algorithms.AStar):
-        self.grid = grid if grid is not None else [[CellModel()]]
-        self.size = len(self.grid[0]), len(self.grid)
-        self.start = start if start is not None else random.randint(0, self.size[0] - 1), random.randint(0, self.size[1] - 1)
-        self.end = end if end is not None else random.randint(0, self.size[0] - 1), random.randint(0, self.size[1] - 1)
+    def __init__(self, grid_size, algorithm=Algorithms.BFS):
+        self.maze, self.start, self.end = PrimsMaze.create(*grid_size)
+        self.size = grid_size
         self.pathfinder = algorithm(self, self.start, self.end)
         self.cur_node = None
         self.finished = False
@@ -17,24 +15,18 @@ class GridModel:
         if not self.finished:
             self.cur_node, self.finished = self.pathfinder.next()
 
-    def is_inside(self, x, y):
-        return 0 <= x < self.size[0] and 0 <= y < self.size[1]
+    def is_valid_pos(self, row, col):
+        return 0 <= row < self.size[0] and 0 <= col < self.size[1] and self.maze[row][col] == Cell.PATH
 
     def get_adjacent(self, node) -> list:
-        # TODO: check for walls
-
         adjacent = []
-        node_x, node_y = node
+        node_row, node_col = node
 
-        for x, y in ((node_x, node_y - 1),
-                     (node_x + 1, node_y),
-                     (node_x, node_y + 1),
-                     (node_x - 1, node_y),
-                     (node_x + 1, node_y - 1),
-                     (node_x + 1, node_y + 1),
-                     (node_x - 1, node_y + 1),
-                     (node_x - 1, node_y - 1)):
-            if self.is_inside(x, y):
-                adjacent.append((x, y))
+        for row, col in ((node_row, node_col - 1),
+                         (node_row + 1, node_col),
+                         (node_row, node_col + 1),
+                         (node_row - 1, node_col)):
+            if self.is_valid_pos(row, col):
+                adjacent.append((row, col))
 
         return adjacent

@@ -14,23 +14,23 @@ class GridView:
         self.render_pathfinding(window)
 
     def render_cells(self, window):
-        for x, col in enumerate(self.model.grid):
+        for x, col in enumerate(self.model.maze):
             for y, cell in enumerate(col):
                 self.cell_view.render(window, self.cell_size[0] * x, self.cell_size[1] * y, cell, self.color_theme.default)
 
     def render_pathfinding(self, window):
         for x, y in self.model.pathfinder.visited_order:
-            self.cell_view.render(window, self.cell_size[0] * x, self.cell_size[1] * y, self.model.grid[x][y], self.color_theme.visited)
+            self.cell_view.render(window, self.cell_size[0] * x, self.cell_size[1] * y, self.model.maze[x][y], self.color_theme.visited)
 
         for x, y in self.model.pathfinder.searching:
-            self.cell_view.render(window, self.cell_size[0] * x, self.cell_size[1] * y, self.model.grid[x][y], self.color_theme.searching)
+            self.cell_view.render(window, self.cell_size[0] * x, self.cell_size[1] * y, self.model.maze[x][y], self.color_theme.searching)
 
         if self.model.finished:
             current = self.model.cur_node
 
             while current is not None:
-                self.cell_view.render(window, self.cell_size[0] * current.pos[0], self.cell_size[1] * current.pos[1], self.model.grid[current.pos[0]][current.pos[1]], self.color_theme.path)
+                self.cell_view.render(window, self.cell_size[0] * current.pos[0], self.cell_size[1] * current.pos[1], self.model.maze[current.pos[0]][current.pos[1]], self.color_theme.path)
                 current = current.prev_node
 
-        self.cell_view.render(window, self.cell_size[0] * self.model.start[0], self.cell_size[1] * self.model.start[1], self.model.grid[self.model.start[0]][self.model.start[1]], self.color_theme.start)
-        self.cell_view.render(window, self.cell_size[0] * self.model.end[0], self.cell_size[1] * self.model.end[1], self.model.grid[self.model.end[0]][self.model.end[1]], self.color_theme.end)
+        self.cell_view.render(window, self.cell_size[0] * self.model.start[0], self.cell_size[1] * self.model.start[1], self.model.maze[self.model.start[0]][self.model.start[1]], self.color_theme.start)
+        self.cell_view.render(window, self.cell_size[0] * self.model.end[0], self.cell_size[1] * self.model.end[1], self.model.maze[self.model.end[0]][self.model.end[1]], self.color_theme.end)

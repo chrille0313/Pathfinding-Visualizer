@@ -1,4 +1,5 @@
 import pygame as pg
+from ..Models.cell_model import Cell
 
 
 class CellView:
@@ -8,15 +9,9 @@ class CellView:
 
     def render(self, window, x, y, cell, colors):
         self.rect.topleft = x, y
-        pg.draw.rect(window, colors.background, self.rect)
-        pg.draw.circle(window, colors.wall, (x + self.rect.width // 2, y + self.rect.height // 2), 1)
+        if cell == Cell.WALL:
+            pg.draw.rect(window, colors.wall, self.rect)
+        elif cell == Cell.PATH:
+            pg.draw.rect(window, colors.background, self.rect)
 
-        # Because pygame is retarded in how it renders lines, I had to do it like this
-        if cell.walls[0]:
-            pg.draw.line(window, colors.wall, self.rect.topleft, (x + self.rect.width, y), self.wall_width)
-        if cell.walls[1]:
-            pg.draw.line(window, colors.wall, (x + self.rect.width - self.wall_width, y), (x + self.rect.width - self.wall_width, y + self.rect.height), self.wall_width)
-        if cell.walls[2]:
-            pg.draw.line(window, colors.wall, (x, y + self.rect.height - self.wall_width), (x + self.rect.width - self.wall_width // 2, y + self.rect.height - self.wall_width), self.wall_width)
-        if cell.walls[3]:
-            pg.draw.line(window, colors.wall, self.rect.bottomleft, self.rect.topleft, self.wall_width)
+        pg.draw.circle(window, colors.wall, (x + self.rect.width // 2, y + self.rect.height // 2), 1)
