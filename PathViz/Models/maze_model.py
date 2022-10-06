@@ -1,5 +1,5 @@
-from random import randint
-from .cell_model import Cell
+from random import randint, shuffle
+from cell_model import Cell
 
 
 class PrimsMaze:
