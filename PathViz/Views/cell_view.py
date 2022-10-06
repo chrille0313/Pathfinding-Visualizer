@@ -9,9 +9,9 @@ class CellView:
 
     def render(self, window, x, y, cell, colors):
         self.rect.topleft = x, y
-        if cell == Cell.WALL:
-            pg.draw.rect(window, colors.wall, self.rect)
-        elif cell == Cell.PATH:
+        if cell == Cell.PATH:
             pg.draw.rect(window, colors.background, self.rect)
+        else:
+            pg.draw.rect(window, colors.wall, self.rect)
 
         pg.draw.circle(window, colors.wall, (x + self.rect.width // 2, y + self.rect.height // 2), 1)

@@ -31,6 +31,6 @@ class GridColorTheme:
         self.end = CellColors(end, wall)
 
 
-WIDTH, HEIGHT = 30, 30
-WIN_WIDTH, WIN_HEIGHT = 600, 600
+WIDTH, HEIGHT = 40, 40
+WIN_WIDTH, WIN_HEIGHT = 800, 800
 COLOR_THEME = GridColorTheme(Colors.GRID, Colors.START, Colors.END, Colors.PATH, Colors.VISITED, Colors.SEARCHING, Colors.WALL)

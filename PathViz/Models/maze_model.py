@@ -6,7 +6,7 @@ class PrimsMaze:
     @classmethod
     def create(cls, rows, cols):
         maze, walls = cls.init_maze(rows, cols)
-        cls.create_maze(maze, walls)
+        cls.prims_create(maze, walls)
         cls.make_unvisited_to_walls(maze, rows, cols)
         start, end = cls.create_entrance_exit(maze, rows, cols)
         return maze, start, end
@@ -32,15 +32,21 @@ class PrimsMaze:
         return maze, walls
 
     @classmethod
-    def create_maze(cls, maze, walls):
+    def prims_create(cls, maze, walls):
+        while walls:
+            cls.next(maze, walls)
+
+    @classmethod
+    def next(cls, maze, walls):
         while walls:
             row, col = walls[randint(0, len(walls) - 1)]
-            if (col != 0 and maze[row][col - 1] == Cell.UNVISITED and maze[row][col + 1] == Cell.PATH)\
-                or (row != 0 and maze[row - 1][col] == Cell.UNVISITED and maze[row + 1][col] == Cell.PATH)\
-                or (row != len(maze) - 1 and maze[row + 1][col] == Cell.UNVISITED and maze[row - 1][col] == Cell.PATH)\
-                    or (col != len(maze[0]) - 1 and maze[row][col + 1] == Cell.UNVISITED and maze[row][col - 1] == Cell.PATH):
+            if (col != 0 and maze[row][col - 1] == Cell.UNVISITED and maze[row][col + 1] == Cell.PATH) \
+                    or (row != 0 and maze[row - 1][col] == Cell.UNVISITED and maze[row + 1][col] == Cell.PATH) \
+                    or (row != len(maze) - 1 and maze[row + 1][col] == Cell.UNVISITED and maze[row - 1][col] == Cell.PATH) \
+                    or (
+                    col != len(maze[0]) - 1 and maze[row][col + 1] == Cell.UNVISITED and maze[row][col - 1] == Cell.PATH):
                 cls.temp(maze, walls, row, col)
-                continue
+                return
             cls.delete_wall(walls, row, col)
 
     @staticmethod

@@ -67,7 +67,7 @@ class Dijkstra:
             return current_path_node, True
 
         for adj in self.world.get_adjacent(current_path_node.pos):
-            new_cost = current_cost + self.world.grid[adj[0]][adj[1]].weight + euclidean_dist(adj, current_path_node.pos)
+            new_cost = current_cost + 1 + euclidean_dist(adj, current_path_node.pos)
 
             if adj not in self.visited and new_cost < self.distances[adj]:
                 self.distances[adj] = new_cost
@@ -103,7 +103,7 @@ class AStar:
             return current_path_node, True
 
         for adj in self.world.get_adjacent(current_path_node.pos):
-            new_g_cost = current_g_cost + self.world.grid[adj[0]][adj[1]].weight
+            new_g_cost = current_g_cost + 1
             new_h_cost = euclidean_dist(adj, self.end)
             new_f_cost = new_g_cost + new_h_cost
 

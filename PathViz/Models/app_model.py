@@ -39,4 +39,4 @@ class AppModel:
         while self.running:
             self.events()
             self.update()
-            clock.tick(20)
+            clock.tick(60)

@@ -11,7 +11,8 @@ class GridView:
 
     def render(self, window: pg.surface):
         self.render_cells(window)
-        self.render_pathfinding(window)
+        if self.model.maze_finished:
+            self.render_pathfinding(window)
 
     def render_cells(self, window):
         for x, col in enumerate(self.model.maze):
@@ -25,7 +26,7 @@ class GridView:
         for x, y in self.model.pathfinder.searching:
             self.cell_view.render(window, self.cell_size[0] * x, self.cell_size[1] * y, self.model.maze[x][y], self.color_theme.searching)
 
-        if self.model.finished:
+        if self.model.pathfinding_finished:
             current = self.model.cur_node
 
             while current is not None:
