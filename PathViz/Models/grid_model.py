@@ -4,7 +4,7 @@ from .Pathfinding import algorithms_model as Algorithms
 
 
 class GridModel:
-    def __init__(self, grid_size, algorithm=Algorithms.Dijkstra):
+    def __init__(self, grid_size, algorithm=Algorithms.AStar):
         self.maze, self.walls = PrimsMaze.init_maze(*grid_size)
         self.size = self.rows, self.cols = grid_size
         self.start = None
