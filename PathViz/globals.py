@@ -32,5 +32,5 @@ class GridColorTheme:
 
 
 WIDTH, HEIGHT = 40, 40
-WIN_WIDTH, WIN_HEIGHT = 800, 800
+WIN_WIDTH, WIN_HEIGHT = 600, 600
 COLOR_THEME = GridColorTheme(Colors.GRID, Colors.START, Colors.END, Colors.PATH, Colors.VISITED, Colors.SEARCHING, Colors.WALL)
