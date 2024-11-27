@@ -8,7 +8,9 @@ from PathViz.Cell.Model import CellModel
 class AppModel:
     def __init__(self, grid_size):
         self.running = False
-        self.grid = GridModel([[CellModel() for _ in range(grid_size[1])] for _ in range(grid_size[0])])
+
+        rows, columns = grid_size
+        self.grid = GridModel([[CellModel() for _ in range(columns)] for _ in range(rows)])
 
     def init(self):
         pg.init()
