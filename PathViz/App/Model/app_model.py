@@ -6,8 +6,9 @@ from PathViz.Cell.Model import CellModel
 
 
 class AppModel:
-    def __init__(self, grid_size):
+    def __init__(self, grid_size, fps=60):
         self.running = False
+        self.fps = fps
 
         rows, columns = grid_size
         self.grid = GridModel([[CellModel() for _ in range(columns)] for _ in range(rows)])
@@ -42,4 +43,4 @@ class AppModel:
         while self.running:
             self.events()
             self.update()
-            clock.tick(60)
+            clock.tick(self.fps)
