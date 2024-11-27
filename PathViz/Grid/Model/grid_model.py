@@ -1,6 +1,6 @@
 import random
-from .cell_model import CellModel
-from .Pathfinding import algorithms_model as Algorithms
+from PathViz.Cell.Model import CellModel
+from PathViz.Pathfinding import algorithms_model as Algorithms
 
 
 class GridModel:

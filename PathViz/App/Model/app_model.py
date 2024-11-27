@@ -1,8 +1,8 @@
 import pygame as pg
 from PathViz.events import Events
 from PathViz.globals import Event
-from .grid_model import GridModel
-from .cell_model import CellModel
+from PathViz.Grid.Model import GridModel
+from PathViz.Cell.Model import CellModel
 
 
 class AppModel:

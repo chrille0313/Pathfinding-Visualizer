@@ -1,5 +1,5 @@
-from PathViz.Views import AppView
-from PathViz.Models import AppModel
+from PathViz.App.Model import AppModel
+from PathViz.App.View import AppView
 
 from globals import WIDTH, HEIGHT, WIN_WIDTH, WIN_HEIGHT
 

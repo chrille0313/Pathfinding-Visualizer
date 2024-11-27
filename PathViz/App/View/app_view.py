@@ -1,7 +1,7 @@
 import pygame as pg
 from PathViz.events import Events
 from PathViz.globals import Event, Colors, COLOR_THEME
-from .grid_view import GridView
+from PathViz.Grid.View import GridView
 
 
 class AppView:
