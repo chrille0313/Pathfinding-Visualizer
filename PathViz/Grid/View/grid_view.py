@@ -1,5 +1,5 @@
 import pygame as pg
-from .cell_view import CellView
+from PathViz.Cell.View import CellView
 
 
 class GridView:
