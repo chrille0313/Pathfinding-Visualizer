@@ -1,10 +1,12 @@
 from PathViz.App.Model import AppModel
 from PathViz.App.View import AppView
 
-from globals import WIDTH, HEIGHT, WIN_WIDTH, WIN_HEIGHT
+from globals import GRID_SIZE, WIN_SIZE
 
 
 if __name__ == '__main__':
-    model = AppModel((WIDTH, HEIGHT))
-    app = AppView(model, (WIN_WIDTH, WIN_HEIGHT))
-    model.run()
+    app = AppModel(GRID_SIZE)
+    app_view = AppView(WIN_SIZE)
+    app_view.view_model(app)
+
+    app.run()

@@ -1,5 +1,4 @@
-from enum import Enum, auto
-
+from pygame import Vector2
 
 class Colors:
     BG = (50, 50, 50)
@@ -9,10 +8,6 @@ class Colors:
     SEARCHING = (105, 193, 0)  # (204, 204, 0)
     # PATH = (105, 193, 0)
     START = END = PATH = (37, 139, 174)
-
-
-class Event(Enum):
-    APP_UPDATE = auto()
 
 
 class CellColors:
@@ -31,6 +26,6 @@ class GridColorTheme:
         self.end = CellColors(end, wall)
 
 
-WIDTH, HEIGHT = 30, 30
-WIN_WIDTH, WIN_HEIGHT = 600, 600
+GRID_SIZE = Vector2(30, 30)
+WIN_SIZE = Vector2(600, 600)
 COLOR_THEME = GridColorTheme(Colors.GRID, Colors.START, Colors.END, Colors.PATH, Colors.VISITED, Colors.SEARCHING, Colors.WALL)
