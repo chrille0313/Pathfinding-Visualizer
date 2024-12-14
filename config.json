@@ -1,0 +1,22 @@
+{
+  "window_size": {
+    "y": 600,
+    "x": 600
+  },
+  "grid_size": {
+    "x": 30,
+    "y": 30
+  },
+  "fps": 60,
+  "theme": {
+    "cells": {
+      "default": "#323232",
+      "wall": "#000000",
+      "visited": "#c20f00",
+      "searching": "#69c100",
+      "path": "#258bae",
+      "start": "#258bae",
+      "end": "#258bae"
+    }
+  }
+}

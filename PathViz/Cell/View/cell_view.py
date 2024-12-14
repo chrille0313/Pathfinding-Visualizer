@@ -12,17 +12,17 @@ class CellView:
     def set_size(self, cell_size):
         self.rect.size = cell_size
 
-    def render(self, window: pg.surface, x, y, cell, colors):
+    def render(self, window: pg.surface, x, y, cell, cell_color, wall_color):
         self.rect.topleft = x, y
-        pg.draw.rect(window, colors.background, self.rect)
-        pg.draw.circle(window, colors.wall, (x + self.rect.width // 2, y + self.rect.height // 2), 1)
+        pg.draw.rect(window, cell_color, self.rect)
+        pg.draw.circle(window, wall_color, (x + self.rect.width // 2, y + self.rect.height // 2), 1)
 
         # Because pygame is retarded in how it renders lines, I had to do it like this
         if cell.walls[0]:
-            pg.draw.line(window, colors.wall, self.rect.topleft, (x + self.rect.width, y), self.wall_width)
+            pg.draw.line(window, wall_color, self.rect.topleft, (x + self.rect.width, y), self.wall_width)
         if cell.walls[1]:
-            pg.draw.line(window, colors.wall, (x + self.rect.width - self.wall_width, y), (x + self.rect.width - self.wall_width, y + self.rect.height), self.wall_width)
+            pg.draw.line(window, wall_color, (x + self.rect.width - self.wall_width, y), (x + self.rect.width - self.wall_width, y + self.rect.height), self.wall_width)
         if cell.walls[2]:
-            pg.draw.line(window, colors.wall, (x, y + self.rect.height - self.wall_width), (x + self.rect.width - self.wall_width // 2, y + self.rect.height - self.wall_width), self.wall_width)
+            pg.draw.line(window, wall_color, (x, y + self.rect.height - self.wall_width), (x + self.rect.width - self.wall_width // 2, y + self.rect.height - self.wall_width), self.wall_width)
         if cell.walls[3]:
-            pg.draw.line(window, colors.wall, self.rect.bottomleft, self.rect.topleft, self.wall_width)
+            pg.draw.line(window, wall_color, self.rect.bottomleft, self.rect.topleft, self.wall_width)

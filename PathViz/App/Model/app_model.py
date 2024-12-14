@@ -11,7 +11,7 @@ class AppModel:
         self.fps = fps
         self.event_manager = EventManager()
 
-        rows, columns = grid_size
+        columns, rows = grid_size
         self.grid = GridModel([[CellModel() for _ in range(int(columns))] for _ in range(int(rows))])
 
     def init(self):
@@ -21,10 +21,10 @@ class AppModel:
     def quit(self):
         self.running = False
 
-    def subscribe(self, event, fn):
+    def subscribe(self, event: Event, fn: callable):
         self.event_manager.subscribe(event, fn)
 
-    def unsubscribe(self, event, fn):
+    def unsubscribe(self, event: Event, fn: callable):
         self.event_manager.unsubscribe(event, fn)
 
     def dispatch_app_events(self):
